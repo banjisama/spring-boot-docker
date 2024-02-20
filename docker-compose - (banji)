@@ -1,0 +1,33 @@
+version: '3.1'
+services:
+  springapp:
+    image: mylandmarktech/spring-boot-mongo 
+    restart: always 
+    environment:
+    - MONGO_DB_HOSTNAME=sprmon
+    - MONGO_DB_USERNAME=banjisama
+    - MONGO_DB_PASSWORD=079banjisan
+    ports:
+    - 8000:8080
+    networks:
+    - freshnet
+    
+  sprmon:
+    image: mongo
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=banjisama
+    - MONGO_INITDB_ROOT_PASSWORD=079banjisan
+    volumes:
+    - freshv:/data/db
+    restart: always
+    networks:
+    - freshnet
+    
+    
+volumes:
+  freshv:
+    driver: local
+    
+networks:
+  freshnet:
+    driver: bridge
